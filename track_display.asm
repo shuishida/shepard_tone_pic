@@ -46,19 +46,19 @@ main
 
 main_loop
 
-			;ƒAƒm[ƒh^1Œ…–Ú‚Ì“_“”
+			;ï¿½Aï¿½mï¿½[ï¿½hï¿½^1ï¿½ï¿½ï¿½Ú‚Ì“_ï¿½ï¿½
 			MOVLW	0xF0
 			ANDWF	PORTA,w
 			MOVWF	DATA1
 			SWAPF	DATA1,w
 			CALL	SELECT
 
-			XORLW	0xFF		;11111111 SELECT‚Å“¾‚½’l‚Ì‹t
+			XORLW	0xFF		;11111111 invert SELECT
 			MOVWF	PORTB
 			CALL	LP_DLY
 			CLRF	PORTB
 
-			;ƒJƒ\[ƒh^2Œ…–Ú‚Ì“_“”
+			;ï¿½Jï¿½\ï¿½[ï¿½hï¿½^2ï¿½ï¿½ï¿½Ú‚Ì“_ï¿½ï¿½
 			MOVLW	0x0F
 			ANDWF	PORTA,w
 			CALL	SELECT

@@ -47,7 +47,7 @@ main
 
 TRC_LP1
 			MOVLW	0x03
-			ANDWF	PORTA,W	;RA0, RA1を読み出す
+			ANDWF	PORTA,W	;read RA0, RA1
 			GOTO		SELECT
 TRC_LP2
 			MOVF		CNT_TRC,w
@@ -56,9 +56,9 @@ TRC_LP2
 			GOTO		TRC_LP1 
 TRC_UP
 			MOVF		CNT_TRC,w
-			XORLW	0x0F			;最大値と一致不一致
-			BTFSC	STATUS,Z	;最大値かどうか判別
-			CLRF	CNT_TRC		;最大値の時のみ実行
+			XORLW	0x0F		;check whether it matches the max value
+			BTFSC	STATUS,Z	;check if it is the max value
+			CLRF	CNT_TRC		;execute only if it is the max value
 			INCF		CNT_TRC,f
 			GOTO		TRC_LP2
 TRC_DOWN
@@ -69,7 +69,7 @@ TRC_DOWN
 			DECFSZ	CNT_TRC,f
 			GOTO		TRC_LP2
 TRC_DOWN2
-			MOVLW		0x0F		;最大値を設定
+			MOVLW		0x0F		;set max value
 			MOVWF		CNT_TRC
 			GOTO		TRC_LP2
 
@@ -77,7 +77,7 @@ SELECT
 			ADDWF	PCL,f
 			GOTO		TRC_LP1		;0 
 			GOTO		TRC_UP		;1
-			GOTO		TRC_DOWN		;2
+			GOTO		TRC_DOWN	;2
 			GOTO		TRC_LP1		;3
 ;************************************************************************ 
 LP_DLY		;250mS

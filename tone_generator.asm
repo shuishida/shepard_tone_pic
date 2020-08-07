@@ -5,13 +5,13 @@
 
 w_temp		EQU		0x70
 status_temp	EQU		0x71
-NOTE		EQU		0x20	;音名データ格納
+NOTE		EQU		0x20	; store base key
 TONE		EQU		0x21
-CNT0		EQU		0x22	;減算データ格納
-CNT1		EQU		0x23	;周波数データ格納
-CNT2		EQU		0x24	;遅延データを格納
-CNT3		EQU		0x25	;曲データ格納
-CNT4		EQU		0x26	;曲データ格納
+CNT0		EQU		0x22	; store decrement count
+CNT1		EQU		0x23	; store number of loops per note
+CNT2		EQU		0x24	; store delay count
+CNT3		EQU		0x25	; store music loop count
+CNT4		EQU		0x26	; store music loop count
 ;************************************************************************
 			ORG	0x000
 			goto	main
@@ -51,8 +51,8 @@ main
 			clrf	CNT0
 
 main_loop
-			movlw	0x07		; 上位アドレス抽出
-			movwf	PCLATH		; 上位アドレスセット
+			movlw	0x07		; extract upper address
+			movwf	PCLATH		; store upper address
 			MOVF	PORTA,w
 			GOTO	SELECT
 ;************************************************************************
@@ -549,8 +549,8 @@ TONE_Ab			movlw	0x0b
 			goto	NOTESET
 ;************************************************************************
 DLYSET
-			MOVLW	0x06		; 上位アドレス抽出
-			MOVWF	PCLATH		; 上位アドレスセット
+			MOVLW	0x06		; extract upper address
+			MOVWF	PCLATH		; store upper address
 			MOVLW	0x10
 			ADDWF	NOTE,w
 			GOTO	SETDATA
@@ -560,8 +560,8 @@ NOTESET
 			BTFSS	STATUS,C
 			ADDLW	0x0C
 			MOVWF	NOTE
-			MOVLW	0x06		; 上位アドレス抽出
-			MOVWF	PCLATH		; 上位アドレスセット
+			MOVLW	0x06		; extract upper address
+			MOVWF	PCLATH		; store upper address
 			MOVF	NOTE,w
 			CALL	SETDATA
 			MOVWF	CNT1
@@ -571,7 +571,7 @@ TONE_TM
 			NOP
 TONE_LP
 			MOVF	CNT0,W		; 1 1
-			MOVWF	PORTB		; 1 1	PORTBに出力
+			MOVWF	PORTB		; 1 1	export to PORTB
 			CALL	DLYSET
 
 			DECFSZ	CNT0,F		; 1 2
@@ -581,7 +581,7 @@ TONE_LP
 			GOTO	TONE_LP		; 2 0
 			RETURN			; 2 2
 ;************************************************************************
-TONEDLY_A		; DLY+18=基音の周期/16=最高音の周期
+TONEDLY_A		; DLY + 18 = (base period)/16
 
 			CALL	DLY_32
 			CALL	DLY_16
