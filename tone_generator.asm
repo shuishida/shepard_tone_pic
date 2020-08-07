@@ -5,8 +5,8 @@
 
 w_temp		EQU		0x70
 status_temp	EQU		0x71
-NOTE		EQU		0x20	; store base key
-TONE		EQU		0x21
+NOTE		EQU		0x20	; store current note
+TONE		EQU		0x21	; store key offset
 CNT0		EQU		0x22	; store decrement count
 CNT1		EQU		0x23	; store number of loops per note
 CNT2		EQU		0x24	; store delay count
