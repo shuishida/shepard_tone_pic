@@ -8,4 +8,4 @@ There are three assembly code, each to be written into a PIC16F628A microcontrol
 - `track_selector.asm`: code for the PIC that selects the track number
 
 The program expects the following circuit:
-![Circuit]()
+![Circuit](https://raw.githubusercontent.com/shuishida/shepard_tone_pic/master/circuit.png)
