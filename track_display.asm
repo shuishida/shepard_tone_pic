@@ -46,7 +46,6 @@ main
 
 main_loop
 
-			;�A�m�[�h�^1���ڂ̓_��
 			MOVLW	0xF0
 			ANDWF	PORTA,w
 			MOVWF	DATA1
@@ -58,7 +57,6 @@ main_loop
 			CALL	LP_DLY
 			CLRF	PORTB
 
-			;�J�\�[�h�^2���ڂ̓_��
 			MOVLW	0x0F
 			ANDWF	PORTA,w
 			CALL	SELECT
